@@ -1154,9 +1154,11 @@ class _W3_MinifyHelpers {
             return false;
         }
 
-        $path = w3_get_document_root() . '/' . $file;
+        /** @var W3_MinifyFileTool $file_tool */
+        $file_tool = w3_instance('W3_MinifyFileTool');
+        $file_tool->setDocumentRoot( w3_get_document_root());
 
-        if (!file_exists($path)) {
+        if (!$file_tool->fileExists($file)) {
             return false;
         }
 

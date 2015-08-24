@@ -544,7 +544,12 @@ class W3_Minify {
                 } else {
                     $path = w3_get_document_root() . '/' . $file;
 
-                    if (file_exists($path)) {
+
+                    /** @var W3_MinifyFileTool $file_tool */
+                    $file_tool = w3_instance('W3_MinifyFileTool');
+                    $file_tool->setDocumentRoot( w3_get_document_root());
+
+                    if ($file_tool->fileExists($file)) {
                         $result[] = $file;
                     } else {
                         $this->error(sprintf('File "%s" doesn\'t exist', $path));

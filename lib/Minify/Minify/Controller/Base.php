@@ -129,7 +129,11 @@ abstract class Minify_Controller_Base {
             }
         }
         $base = basename($file);
-        if (! $pathOk || ! is_file($file) || $base[0] === '.') {
+
+        /** @var W3_MinifyFileTool $file_tool */
+        $file_tool = w3_instance('W3_MinifyFileTool');
+
+        if (! $pathOk || ! $file_tool->isFile($file) || $base[0] === '.') {
             return false;
         }
         list($revExt) = explode('.', strrev($base));

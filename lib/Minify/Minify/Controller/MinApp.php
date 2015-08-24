@@ -141,7 +141,15 @@ class Minify_Controller_MinApp extends Minify_Controller_Base {
                 }
 
                 $path = $_SERVER['DOCUMENT_ROOT'] . $base . $file;
-                $file = realpath($path);
+
+                /** @var W3_MinifyFileTool $file_tool */
+                $file_tool = w3_instance('W3_MinifyFileTool');
+                $file_tool->setDocumentRoot($_SERVER['DOCUMENT_ROOT']);
+
+                $file = $file_tool->realPath($file);
+
+                $allowDirs = $file_tool->allowDirs($allowDirs);
+
                 if (false === $file) {
                     $this->log("Path \"{$path}\" failed realpath()");
                     return $options;

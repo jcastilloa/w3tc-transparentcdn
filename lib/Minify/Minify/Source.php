@@ -73,7 +73,11 @@ class Minify_Source {
             $this->filepath = $spec['filepath'];
             $this->_id = $spec['filepath'];
             w3_require_once(W3TC_LIB_MINIFY_DIR . '/Minify.php');
-            $this->lastModified = filemtime($spec['filepath'])
+
+
+            /** @var W3_MinifyFileTool $file_tool */
+            $file_tool = w3_instance('W3_MinifyFileTool');
+            $this->lastModified = $file_tool->getFileMtime($spec['filepath'])
                 // offset for Windows uploaders with out of sync clocks
                 + round(Minify::$uploaderHoursBehind * 3600);
         } elseif (isset($spec['id'])) {

@@ -337,6 +337,11 @@ class Minify_CSS_UriRewriter {
             }
         }
 
+        /** @var W3_MinifyFileTool $file_tool */
+        $file_tool = w3_instance('W3_MinifyFileTool');
+        $file_tool->setDocumentRoot($realDocRoot);
+        $realDocRoot = $file_tool->getRealDocumentRoot($path);
+
         // strip doc root
         $path = substr($path, strlen($realDocRoot));
 
